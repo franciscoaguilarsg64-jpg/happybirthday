@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Nicole!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor principal */
+        .card-container {
+            width: 330px;
+            height: 480px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-radius: 15px;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        /* Estilos de las 3 caras independientes */
+        .card-face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: scale(0.95);
+        }
+
+        /* Cara activa */
+        .card-face.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        /* CARA 1: Portada */
+        .card-front {
+            background: linear-gradient(135deg, #ff80ab, #ff4081);
+            color: white;
+            border: 3px solid #fff;
+            justify-content: center;
+        }
+
+        .card-front h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .card-front p {
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+        }
+
+        .tulip-icon {
+            font-size: 60px;
+            margin: 10px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* CARA 2: Mensaje de cumpleaños */
+        .card-back {
+            background-color: #ffffff;
+            color: #4a4a4a;
+            border: 2px solid #f48fb1;
+            overflow: hidden;
+            justify-content: center;
+        }
+
+        .card-back::before {
+            content: "🌷 🌷 🌷";
+            position: absolute;
+            top: 10px;
+            font-size: 22px;
+        }
+
+        .card-back::after {
+            content: "🌷 🌷 🌷";
+            position: absolute;
+            bottom: 10px;
+            font-size: 22px;
+        }
+
+        .card-back h1 {
+            color: #d81b60;
+            font-size: 2.1rem;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+
+        .card-back p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* CARA 3: Dedicatoria para Nicole con el Ramo */
+        .card-special {
+            background: linear-gradient(180deg, #ffffff 0%, #fff0f5 100%);
+            color: #d81b60;
+            border: 3px solid #ff80ab;
+            overflow: hidden;
+        }
+
+        .card-special h1 {
+            font-size: 1.9rem;
+            font-family: 'Georgia', serif;
+            color: #c2185b;
+            margin-top: 5px;
+        }
+
+        /* Imagen del Ramo de Tulipanes */
+        .bouquet-img {
+            width: 220px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.2);
+            border: 3px solid #ffb2dd;
+        }
+
+        .hint-text {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* Lluvia de tulipanes */
+        .floating-tulip {
+            position: absolute;
+            top: -50px;
+            font-size: 24px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container" onclick="nextStep()">
+        <div class="card">
+            <!-- CARA 1: Portada -->
+            <div class="card-face card-front active" id="face1">
+                <h2>Tienes un mensaje especial</h2>
+                <div class="tulip-icon">🌷</div>
+                <p>✨ Haz clic para abrir ✨</p>
+            </div>
+
+            <!-- CARA 2: Mensaje de cumpleaños -->
+            <div class="card-face card-back" id="face2">
+                <h1>¡Feliz Cumpleaños! 🎉</h1>
+                <p>
+                    Deseo que este nuevo año de vida esté lleno de alegría, amor, salud y momentos tan hermosos como un jardín repleto de tulipanes.
+                </p>
+                <p style="font-weight: bold; color: #ad1457;">
+                    ¡Que tengas un día inolvidable! 🌷✨
+                </p>
+                <p class="hint-text">✨ Haz clic otra vez ✨</p>
+            </div>
+
+            <!-- CARA 3: Dedicatoria para Nicole con el Ramo -->
+            <div class="card-face card-special" id="face3">
+                <h1>¡Feliz Cumpleaños Nicole! 💖</h1>
+                
+                <!-- Recuerda poner tu imagen con el nombre 'ramo.png' en la misma carpeta -->
+                <img class="bouquet-img" src="ramo.png" alt="Ramo de tulipanes para Nicole">
+
+                <p style="font-weight: 600; color: #ad1457; font-size: 0.95rem;">
+                    ¡Te deseo lo mejor hoy y siempre! 💐
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+
+        function nextStep() {
+            const face1 = document.getElementById('face1');
+            const face2 = document.getElementById('face2');
+            const face3 = document.getElementById('face3');
+
+            // Desactivar todas
+            face1.classList.remove('active');
+            face2.classList.remove('active');
+            face3.classList.remove('active');
+
+            currentStep = (currentStep % 3) + 1;
+
+            if (currentStep === 1) {
+                face1.classList.add('active');
+            } else if (currentStep === 2) {
+                face2.classList.add('active');
+                triggerTulipRain();
+            } else if (currentStep === 3) {
+                face3.classList.add('active');
+                triggerTulipRain();
+            }
+        }
+
+        function triggerTulipRain() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createTulip, i * 100);
+            }
+        }
+
+        function createTulip() {
+            const tulip = document.createElement('div');
+            tulip.classList.add('floating-tulip');
+            
+            const flowers = ['🌷', '🌸', '💐', '🌺', '✨'];
+            tulip.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+            
+            tulip.style.left = Math.random() * 100 + 'vw';
+            tulip.style.animationDuration = Math.random() * 3 + 2 + 's';
+            tulip.style.opacity = Math.random();
+            tulip.style.fontSize = Math.random() * 15 + 20 + 'px';
+
+            document.body.appendChild(tulip);
+
+            setTimeout(() => {
+                tulip.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
